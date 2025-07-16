@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tech for Girls - Registration</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      background-color: #f7f7f7;
+    }
+    form {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 500px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 15px;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    #submitBtn {
+      background-color: #28a745;
+      color: white;
+      cursor: pointer;
+    }
+    #submitBtn:disabled {
+      background-color: #aaa;
+      cursor: not-allowed;
+    }
+    #shareBtn {
+      background-color: #25D366;
+      color: white;
+      margin-top: 20px;
+    }
+    #message {
+      margin-top: 20px;
+      font-size: 1.2em;
+      color: green;
+      font-weight: bold;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <form id="registrationForm">
+    <h2>Tech for Girls - Registration Form</h2>
+
+    <!-- ✅ Basic Details -->
+    <label for="name">Name:</label>
+    <input type="text" id="name" required />
+
+    <label for="phone">Phone Number:</label>
+    <input type="number" id="phone" required />
+
+    <label for="email">Email ID:</label>
+    <input type="email" id="email" required />
+
+    <label for="college">College/Department:</label>
+    <input type="text" id="college" required />
+
+    <!-- ✅ WhatsApp Sharing Button -->
+    <button type="button" id="shareBtn">📲 Share on WhatsApp</button>
+    <p id="counterText">Click count: 0/5</p>
+
+    <!-- ✅ File Upload -->
+    <label for="screenshot">Upload Screenshot (Resume, Photo, etc.):</label>
+    <input type="file" id="screenshot" required />
+
+    <!-- ✅ Submit Button -->
+    <button type="submit" id="submitBtn">Submit Registration</button>
+
+    <!-- ✅ Message Area -->
+    <div id="message"></div>
+  </form>
+
+  <script>
+    let clickCount = 0;
+    const shareBtn = document.getElementById('shareBtn');
+    const counterText = document.getElementById('counterText');
+    const submitBtn = document.getElementById('submitBtn');
+    const form = document.getElementById('registrationForm');
+    const messageDiv = document.getElementById('message');
+
+    shareBtn.addEventListener('click', () => {
+      if (clickCount < 5) {
+        const whatsappMessage = "Hey Buddy, Join Tech For Girls Community";
+        const whatsappURL = https://api.whatsapp.com/send?text=${encodeURIComponent(whatsappMessage)};
+        window.open(whatsappURL, '_blank');
+        clickCount++;
+        counterText.textContent = Click count: ${clickCount}/5;
+        if (clickCount === 5) {
+          counterText.textContent += " ✅ Sharing complete. Please continue.";
+        }
+      }
+    });
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      if (clickCount < 5) {
+        alert("Please complete sharing on WhatsApp 5 times before submitting.");
+        return;
+      }
+
+      // Normally here you would send data to a server with fetch()
+      // We're simulating the behavior only.
+
+      // Disable form inputs
+      Array.from(form.elements).forEach(el => el.disabled = true);
+      messageDiv.innerHTML = "🎉 Your submission has been recorded. Thanks for being part of Tech for Girls!";
+    });
+  </script>
+</body>
+</html>
